@@ -700,6 +700,8 @@ def read_tydi_examples(input_file, is_training, max_passages, max_position,
       logging.info(path)
       for line in input_file:
         json_dict = json.loads(line, object_pairs_hook=collections.OrderedDict)
+        if json_dict['language'].lower() not in ['japanese', 'korean']:
+            continue
         entry = create_entry_from_json(
             json_dict,
             max_passages=max_passages,

@@ -238,7 +238,7 @@ def score_minimal_answer(gold_label_list, pred_label,
 
 def byte_slice(text, start, end):
   byte_str = bytes(text, 'utf-8')
-  return str(byte_str[start:end])
+  return byte_str[start:end].decode("utf-8")
 
 
 def score_answers(gold_annotation_dict, pred_dict):
@@ -295,7 +295,7 @@ def score_answers(gold_annotation_dict, pred_dict):
       logging.info('gold answer: (%s)',
                    byte_slice(gold[0].plaintext, gold_min_start, gold_min_end))
       logging.info('pred answer: (%s)',
-                   byte_slice(pred.plaintext, pred_min_start, pred_min_end))
+                   byte_slice(gold[0].plaintext, pred_min_start, pred_min_end))
       logging.info('score %.2f', minimal_answer_stats[-1][-1])
       logging.info('f1: %.2f, p: %.2f, r: %.2f',
                    minimal_answer_stats[-1][-2][2],
