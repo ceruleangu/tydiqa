@@ -136,6 +136,8 @@ def read_entries(input_jsonl_pattern, fail_on_invalid):
     with gzip.GzipFile(fileobj=tf.gfile.Open(input_path, "rb")) as input_file:  # pytype: disable=wrong-arg-types
       for line_no, line in enumerate(input_file, 1):
         json_elem = json.loads(line, object_pairs_hook=collections.OrderedDict)
+        if json_elem['language'].lower() not in ['japanese', 'korean']:
+            continue
         entry = preproc.create_entry_from_json(
             json_elem,
             max_passages=FLAGS.max_passages,
